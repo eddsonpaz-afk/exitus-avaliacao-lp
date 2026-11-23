@@ -26,6 +26,18 @@ async function accessToken() {
 }
 
 async function saveRow(row) {
+  if (process.env.EXITUS_LEADS_WEBHOOK_URL && process.env.EXITUS_LEADS_WEBHOOK_TOKEN) {
+    const response = await fetch(process.env.EXITUS_LEADS_WEBHOOK_URL, {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({token:process.env.EXITUS_LEADS_WEBHOOK_TOKEN,row}),
+      signal: AbortSignal.timeout(12000),
+    });
+    if (!response.ok || (await response.json()).ok !== true) {
+      throw new Error('Lead webhook did not confirm the write');
+    }
+    return;
+  }
   const token = await accessToken();
   const endpoint = 'https://sheets.googleapis.com/v4/spreadsheets/'+spreadsheet+'/values/';
   const headers = {Authorization:'Bearer '+token,'Content-Type':'application/json'};
@@ -59,7 +71,7 @@ export default async function handler(req,res) {
   if (name.length < 2 || school.length < 2 || !schoolTypes.has(schoolType) || !aiPriorities.has(aiPriority) || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || !/^[+\d()\s.-]+$/.test(rawPhone) || !/^[1-9]{2}(?:[2-5]\d{7}|9\d{8})$/.test(phone) || !roles.has(role) || !/^[\da-f]{8}-[\da-f]{4}-4[\da-f]{3}-[89ab][\da-f]{3}-[\da-f]{12}$/i.test(id)) {
     return res.status(422).json({message:'Confira o nome, o telefone com DDD, o e-mail e os dados da escola.'});
   }
-  if (!process.env.GOOGLE_SHEETS_SERVICE_ACCOUNT_JSON) {
+  if (!process.env.GOOGLE_SHEETS_SERVICE_ACCOUNT_JSON && !(process.env.EXITUS_LEADS_WEBHOOK_URL && process.env.EXITUS_LEADS_WEBHOOK_TOKEN)) {
     return res.status(503).json({message:'O formulário está em prévia. O envio será liberado quando a planilha estiver conectada.'});
   }
   try {
