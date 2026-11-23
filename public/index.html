@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Exitus Avaliação | Solicite uma demonstração</title>
+<meta name="description" content="Conheça o Exitus Avaliação, da elaboração à devolutiva, com apoio da inteligência artificial e validação do professor.">
+<style>
+:root{color-scheme:light;--ink:#07143f;--blue:#254fc9;--muted:#46577e;--line:#d9e4fa;--soft:#eff5ff}*{box-sizing:border-box}body{margin:0;font:16px/1.55 system-ui,sans-serif;color:var(--ink);background:#fbfcff}a{color:inherit}a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:3px solid #6489f3;outline-offset:4px}.wrap{width:min(1160px,calc(100% - 48px));margin:auto}header{background:#fff;border-bottom:1px solid var(--line)}nav{min-height:74px;display:flex;justify-content:space-between;align-items:center;gap:16px}nav>a{text-decoration:none;font-weight:760}.brand{display:flex;align-items:center;gap:12px;font-size:24px;letter-spacing:-.06em}.brand span{border-left:1px solid var(--line);padding-left:12px;font-size:14px;letter-spacing:0;color:var(--muted)}.navcta{font-size:14px;color:#153a95}.hero{background:radial-gradient(ellipse at 2% 0,#fff 12%,transparent 67%),linear-gradient(130deg,#f2f6ff,#e2ebff);border-bottom:1px solid var(--line)}.grid{display:grid;grid-template-columns:1.18fr 1fr;gap:clamp(32px,7vw,100px);align-items:center;padding-block:70px}.tag{font-size:13px;font-weight:800;color:#153a95;letter-spacing:.12em;text-transform:uppercase}h1,h2,h3,p{margin:0}h1{font-size:clamp(42px,5.4vw,74px);letter-spacing:-.075em;line-height:1.04;margin:12px 0 20px;font-weight:800}h1 span{color:var(--blue)}.intro{font-size:clamp(17px,2vw,20px);max-width:480px;color:#33456e}.proof{margin-top:25px;font-size:14px;font-weight:740;display:flex;gap:9px;align-items:center}.proof::before{content:"";height:8px;width:8px;border-radius:50%;background:#288260;flex:none}.card{padding:clamp(20px,3vw,36px);border:1px solid #cbdaf8;background:#fff;border-radius:24px;box-shadow:0 24px 70px #173a7e17;scroll-margin:20px}.card h2{font-size:clamp(26px,3vw,34px);letter-spacing:-.055em;line-height:1.1}.card>p{color:var(--muted);margin:8px 0 18px;font-size:15px}.fields{display:grid;gap:12px}label{display:grid;gap:4px;font-size:14px;font-weight:700}input,select,button{font:inherit;border-radius:10px}input,select{width:100%;min-height:46px;border:1px solid #bac9e4;padding:9px 12px;background:#fbfcff;color:var(--ink)}button,.button{border:0;background:#224ac2;color:white;display:inline-flex;align-items:center;justify-content:center;min-height:49px;padding:10px 17px;font-weight:750;text-decoration:none;border-radius:10px;cursor:pointer}button:hover,.button:hover{background:#153a95}button:disabled{opacity:.65;cursor:wait}.notice{font-size:13px;color:var(--muted);margin-top:9px}.status{font-size:14px;margin-top:9px;color:#933122}.status:empty{display:none}.success{padding:20px;background:#edf9f3;border:1px solid #bfe3ce;border-radius:12px;color:#114b35}.success h3{margin-bottom:5px}.content{padding-block:66px}.content h2{font-size:clamp(29px,4vw,46px);letter-spacing:-.06em;line-height:1.13;margin:7px 0 23px}.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.step{background:white;border:1px solid var(--line);border-radius:16px;padding:22px}.step h3{font-size:20px;margin-bottom:6px}.step p,details p{color:var(--muted)}.faq{background:var(--soft);border-block:1px solid var(--line)}.faq .wrap{display:grid;grid-template-columns:.8fr 1fr;gap:26px}.faq details{border-top:1px solid #cbd8f3;padding:13px 0}.faq details:last-of-type{border-bottom:1px solid #cbd8f3}summary{font-weight:730;cursor:pointer}details p{padding-top:8px}.faq .button{margin-top:4px}footer{padding:23px 0;font-size:14px;color:var(--muted)}footer .wrap{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap}[hidden]{display:none!important}@media(max-width:790px){.grid,.faq .wrap{grid-template-columns:1fr}.grid{padding-block:42px;gap:28px}.steps{grid-template-columns:1fr}.content{padding-block:43px}.wrap{width:calc(100% - 36px)}}
+</style>
+</head>
+<body>
+<header><nav class="wrap" aria-label="Navegação principal"><a class="brand" href="/">Exitus <span>Avaliação</span></a><a class="navcta" href="#demonstracao">Solicite uma demonstração</a></nav></header>
+<main>
+<section class="hero"><div class="wrap grid">
+<div><p class="tag">Exitus Avaliação</p><h1>Sua escola ainda corrige <span>provas uma por uma?</span></h1><p class="intro">Da elaboração à devolutiva, conheça uma forma de organizar as avaliações com apoio da IA e validação do professor.</p><p class="proof">Tecnologia educacional criada dentro do Colégio Christus.</p></div>
+<section class="card" id="demonstracao" aria-labelledby="form-title"><h2 id="form-title">Solicite uma demonstração</h2><p>Preencha seus dados para conversar com a equipe da Exitus.</p>
+<form id="lead-form" class="fields" method="post" action="/api/leads">
+<label>Nome completo<input name="name" autocomplete="name" required maxlength="120"></label>
+<label>Telefone com DDD<input type="tel" name="phone" autocomplete="tel" inputmode="tel" placeholder="(85) 99999-9999" required maxlength="24"></label>
+<label>E-mail profissional<input type="email" name="email" autocomplete="email" required maxlength="254"></label>
+<label>Função (opcional)<select name="role"><option value="">Selecione sua função</option><option>Diretor(a)</option><option>Professor(a)</option><option>TI</option><option>Coordenador(a)</option><option>Mantenedor(a)</option><option>Secretaria escolar</option><option>Outro</option></select></label>
+<label>Cidade<input name="city" autocomplete="address-level2" required maxlength="120"></label>
+<button type="submit">Solicite uma demonstração</button>
+</form>
+<p class="notice">Usamos seus dados para responder à solicitação. <a href="/privacidade">Como tratamos seus dados</a>.</p>
+<p class="status" id="status" role="alert"></p>
+<div class="success" id="success" hidden tabindex="-1"><h3>Solicitação recebida</h3><p>A equipe pode falar com você pelo telefone ou e-mail informado.</p></div>
+</section></div></section>
+<section class="content wrap" aria-labelledby="processo"><p class="tag">Da elaboração à devolutiva</p><h2 id="processo">Como a Exitus apoia cada etapa</h2><div class="steps">
+<article class="step"><h3>Elaboração</h3><p>Conheça os recursos que apoiam a preparação e a revisão das avaliações.</p></article>
+<article class="step"><h3>Correção</h3><p>A inteligência artificial pode sugerir correções. O professor revisa e decide a nota final.</p></article>
+<article class="step"><h3>Devolutiva</h3><p>Veja na demonstração como a equipe pode usar as avaliações para acompanhar a aprendizagem.</p></article>
+</div></section>
+<section class="content faq" aria-labelledby="duvidas"><div class="wrap">
+<div><h2 id="duvidas">Dúvidas sobre a demonstração</h2><a class="button" href="#demonstracao">Solicite uma demonstração</a></div>
+<div><details><summary>Quem valida a nota?</summary><p>O professor revisa a avaliação e confirma a nota final.</p></details><details><summary>O que acontece depois do cadastro?</summary><p>A equipe da Exitus pode entrar em contato pelo telefone ou e-mail informado para combinar a demonstração.</p></details></div>
+</div></section>
+</main>
+<footer><div class="wrap"><span>Exitus Avaliação</span><a href="https://exituseduc.com.br/">Site oficial da Exitus</a></div></footer>
+<script>
+const form = document.querySelector('#lead-form');
+const status = document.querySelector('#status');
+const success = document.querySelector('#success');
+const button = form.querySelector('button');
+const query = new URLSearchParams(location.search);
+let submissionId = crypto.randomUUID();
+form.addEventListener('input', () => { submissionId = crypto.randomUUID(); });
+form.addEventListener('submit', async (event) => {
+  event.preventDefault();
+  button.disabled = true;
+  status.textContent = '';
+  const details = Object.fromEntries(new FormData(form));
+  for (const key of ['utm_source','utm_medium','utm_campaign','utm_content','utm_term']) {
+    details[key] = query.get(key) || '';
+  }
+  try {
+    const response = await fetch(form.action, { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({...details,id:submissionId}) });
+    if (!response.ok) {
+      const result = await response.json().catch(() => ({}));
+      throw new Error(result.message || 'Não conseguimos enviar. Tente novamente.');
+    }
+    form.hidden = true;
+    form.nextElementSibling.hidden = true;
+    success.hidden = false;
+    success.focus();
+  } catch (error) {
+    status.textContent = error.message === 'Failed to fetch' ? 'Confira sua conexão e tente novamente.' : error.message;
+  } finally {
+    button.disabled = false;
+  }
+});
+</script>
+</body>
+</html>
