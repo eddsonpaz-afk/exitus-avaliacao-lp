@@ -2,7 +2,9 @@ import { sign } from 'node:crypto';
 
 const spreadsheet = '1vQjPZYVQzmSE6hioUMBgkbcfw8RC4xARn47ctHAqlSE';
 const fields = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
-const roles = new Set(['', 'Diretor(a)', 'Professor(a)', 'TI', 'Coordenador(a)', 'Mantenedor(a)', 'Secretaria escolar', 'Outro']);
+const roles = new Set(["Gestor(a) / Mantenedor(a)","Diretor(a)","Coordenador(a) pedagógico(a)","Administrativo(a)","TI / Tecnologia","Professor(a)","Responsável por aluno","Estudante","Outra"]);
+const schoolTypes = new Set(["Escola pública","Escola privada"]);
+const aiPriorities = new Set(["Planejamento e preparação de aulas","Criação de materiais com a identidade da escola","Adaptação de atividades para diferentes alunos","Avaliações, correção e acompanhamento da aprendizagem","Gestão, relatórios e organização de processos","Comunicação e acompanhamento das famílias","Antes de avançar, precisamos entender melhor como usar IA"]);
 const value = (input, maxlength) => typeof input === 'string' ? input.trim().slice(0, maxlength) : '';
 const encode = (input) => Buffer.from(JSON.stringify(input)).toString('base64url');
 let cachedToken;
@@ -31,7 +33,7 @@ async function saveRow(row) {
   if (!ids.ok) throw new Error('Google Sheets read '+ids.status);
   const existing = (await ids.json()).values ?? [];
   if (existing.some(([id])=>id === row[11])) return;
-  const result = await fetch(endpoint+encodeURIComponent("'Página1'!A:L")+':append?valueInputOption=RAW&insertDataOption=INSERT_ROWS',{
+  const result = await fetch(endpoint+encodeURIComponent("'Página1'!A:O")+':append?valueInputOption=RAW&insertDataOption=INSERT_ROWS',{
     method:'POST',headers,body:JSON.stringify({values:[row]}),signal:AbortSignal.timeout(7000)
   });
   if (!result.ok) throw new Error('Google Sheets append '+result.status);
@@ -45,21 +47,23 @@ export default async function handler(req,res) {
   }
   const data = req.body ?? {};
   const name = value(data.name,120);
-  const city = value(data.city,120);
+  const school = value(data.school,160);
+  const schoolType = value(data.schoolType,40);
+  const aiPriority = value(data.aiPriority,160);
   const email = value(data.email,254).toLowerCase();
   const role = value(data.role,80);
   const rawPhone = value(data.phone,24);
   const digits = rawPhone.replace(/\D/g,'');
   const phone = digits.length >= 12 && digits.startsWith('55') ? digits.slice(2) : digits;
   const id = value(data.id,36);
-  if (name.length < 2 || city.length < 2 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || !/^[+\d()\s.-]+$/.test(rawPhone) || !/^[1-9]{2}(?:[2-5]\d{7}|9\d{8})$/.test(phone) || !roles.has(role) || !/^[\da-f]{8}-[\da-f]{4}-4[\da-f]{3}-[89ab][\da-f]{3}-[\da-f]{12}$/i.test(id)) {
-    return res.status(422).json({message:'Confira o nome, o telefone com DDD, o e-mail e a cidade.'});
+  if (name.length < 2 || school.length < 2 || !schoolTypes.has(schoolType) || !aiPriorities.has(aiPriority) || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || !/^[+\d()\s.-]+$/.test(rawPhone) || !/^[1-9]{2}(?:[2-5]\d{7}|9\d{8})$/.test(phone) || !roles.has(role) || !/^[\da-f]{8}-[\da-f]{4}-4[\da-f]{3}-[89ab][\da-f]{3}-[\da-f]{12}$/i.test(id)) {
+    return res.status(422).json({message:'Confira o nome, o telefone com DDD, o e-mail e os dados da escola.'});
   }
   if (!process.env.GOOGLE_SHEETS_SERVICE_ACCOUNT_JSON) {
     return res.status(503).json({message:'O formulário está em prévia. O envio será liberado quando a planilha estiver conectada.'});
   }
   try {
-    await saveRow([new Date().toISOString(),name,phone,email,role,city,...fields.map((key)=>value(data[key],200)),id]);
+    await saveRow([new Date().toISOString(),name,phone,email,role,'',...fields.map((key)=>value(data[key],200)),id,school,schoolType,aiPriority]);
     return res.status(201).json({ok:true});
   } catch (error) {
     console.error('Lead persistence failed', error.message);
